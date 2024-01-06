@@ -10,7 +10,7 @@ const Footer = () => {
             </p>
           </div>
           <div className="flex space-x-6">
-            <a href=" /" className="text-gray-300 hover:text-white">
+            <a href=" /dawnsportfolio" className="text-gray-300 hover:text-white">
               Visual Development
             </a>
             <a href=" /personal" className="text-gray-300 hover:text-white">
