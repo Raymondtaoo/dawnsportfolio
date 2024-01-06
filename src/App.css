@@ -1,0 +1,17 @@
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; 
+}
+
+.menu-icon {
+  margin-left: auto; 
+  margin-right: 1rem; 
+}
+
+@media (min-width: 768px) {
+  .menu-icon {
+    display: none;
+  }
+}
