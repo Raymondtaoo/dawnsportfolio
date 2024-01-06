@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import VisDev from './pages/VisDev';
 import Personal from './pages/Personal';
 import AboutContact from './pages/AboutContact';
@@ -10,8 +10,7 @@ import './styles/global.css';
 
 function App() {
   return (
-    
-    <Router>
+    <Router basename="/">
       <NavBar />
       <Routes>
         <Route path="/dawnsportfolio" element={<VisDev />} />
