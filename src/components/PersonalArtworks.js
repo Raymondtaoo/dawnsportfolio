@@ -6,19 +6,19 @@ const PersonalArtworks = () => {
   const PersonalImages = [
     // add images here
     {
-      src: "/images/personal/image1.png",
+      src: "dawnsportfolio/images/personal/image1.png",
       alt: "",
     },
     {
-      src: "/images/personal/image2.png",
+      src: "dawnsportfolio/images/personal/image2.png",
       alt: "",
     },
     {
-      src: "/images/personal/image3.jpeg",
+      src: "dawnsportfolio/images/personal/image3.jpeg",
       alt: "",
     },
     {
-      src: "/images/personal/image4.png",
+      src: "dawnsportfolio/images/personal/image4.png",
       alt: "",
     },
   ];
