@@ -1,9 +1,81 @@
-import React from "react";
+import React, { useState, useRef } from "react";
+import emailjs from "@emailjs/browser";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import Recaptcha from "react-google-invisible-recaptcha";
 
 const AboutContact = () => {
+  // ReCAPTCHA
+  const refRecaptcha = React.useRef(null);
+
+  // EmailJS
+  const form = useRef();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+    const validationErrors = validateForm();
+    setFormErrors(validationErrors);
+    if (Object.keys(validationErrors).length === 0) {
+      emailjs
+        .sendForm(
+          process.env.REACT_APP_EMAILJS_SERVICE_ID,
+          process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+          form.current,
+          process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+        )
+        .then(
+          (result) => {
+            console.log(result.text);
+            console.log("Email sent");
+          },
+          (error) => {
+            console.log(error.text);
+          }
+        );
+    }
+  };
+
+  // Form Validation
+  const [formValues, setFormValues] = useState({
+    from_name: "",
+    reply_to: "",
+    message: "",
+  });
+  const [formErrors, setFormErrors] = useState({
+    from_name: "",
+    reply_to: "",
+    message: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value });
+  };
+
+  const validateForm = () => {
+    let errors = {};
+
+    // Validate name
+    if (!formValues.from_name) {
+      errors.from_name = "Name is required";
+    }
+
+    // Validate email
+    if (!formValues.reply_to) {
+      errors.reply_to = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formValues.reply_to)) {
+      errors.reply_to = "Email address is invalid";
+    }
+
+    // Validate message
+    if (!formValues.message) {
+      errors.message = "Message is required";
+    }
+
+    return errors;
+  };
+
   return (
     <div className="container mx-auto p-5 pb-20">
       <div className="flex flex-col items-center justify-center space-y-10">
@@ -52,7 +124,11 @@ const AboutContact = () => {
         {/* Contact Section */}
         <div className="text-center p-6 max-w-2xl bg-white rounded-lg border border-gray-200 shadow-md">
           <h2 className="text-3xl font-bold text-black mb-4">Contact Me</h2>
-          <form className="w-full max-w-lg mx-auto">
+          <form
+            ref={form}
+            onSubmit={sendEmail}
+            className="w-full max-w-lg mx-auto"
+          >
             <div className="flex flex-wrap -mx-3 mb-6">
               {/* Name Field */}
               <div className="w-full px-3 mb-6 md:mb-0">
@@ -64,10 +140,17 @@ const AboutContact = () => {
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                  id="name"
+                  name="from_name"
                   type="text"
                   placeholder="Your Name"
+                  value={formValues.from_name}
+                  onChange={handleInputChange}
                 />
+                {formErrors.from_name && (
+                  <p className="text-red-500 text-xs italic error-message">
+                    {formErrors.from_name}
+                  </p>
+                )}
               </div>
               {/* Email Field */}
               <div className="w-full px-3">
@@ -79,10 +162,17 @@ const AboutContact = () => {
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                  id="email"
+                  name="reply_to"
                   type="email"
                   placeholder="youremail@example.com"
+                  value={formValues.reply_to}
+                  onChange={handleInputChange}
                 />
+                {formErrors.reply_to && (
+                  <p className="text-red-500 text-xs italic error-message">
+                    {formErrors.reply_to}
+                  </p>
+                )}
               </div>
             </div>
             {/* Message Field */}
@@ -95,19 +185,32 @@ const AboutContact = () => {
               </label>
               <textarea
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="message"
+                name="message"
                 placeholder="Enter your message here..."
                 rows="4"
+                value={formValues.message}
+                onChange={handleInputChange}
               ></textarea>
+              {formErrors.message && (
+                <p className="text-red-500 text-xs italic error-message">
+                  {formErrors.message}
+                </p>
+              )}
             </div>
             {/* Submit Button */}
             <div className="flex justify-center">
-                <button
-                  className="shadow bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded"
-                  type="button"
-                >
-                  Send
-                </button>
+              <button
+                className="shadow bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded"
+                type="submit"
+              >
+                Send
+              </button>
+              <Recaptcha
+                onResolved={() => console.log("Human detected.")}
+                ref={refRecaptcha}
+                sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+                badge="bottomright"
+              />
             </div>
           </form>
         </div>
