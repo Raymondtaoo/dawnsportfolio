@@ -19,8 +19,8 @@ Include screenshots here to showcase the website's features like the submission 
 
 ![Homepage](https://github.com/Raymondtaoo/dawnsportfolio/assets/123979366/6043fbc0-5bcc-4b18-bb28-a579db4f1423)
 <p>
-  <img src="https://github.com/Raymondtaoo/dawnsportfolio/assets/123979366/1b5e4520-9098-4c18-aff4-97867debb8dc" alt="Mobile Page" width="450" />
-  <img src="https://github.com/Raymondtaoo/dawnsportfolio/assets/123979366/1cf4248c-7ffc-4a48-b837-dcfb57bbb894" alt="Mobile Page lightbox" width="450" />
+  <img src="https://github.com/Raymondtaoo/dawnsportfolio/assets/123979366/1b5e4520-9098-4c18-aff4-97867debb8dc" alt="Mobile Page" width="300" />
+  <img src="https://github.com/Raymondtaoo/dawnsportfolio/assets/123979366/1cf4248c-7ffc-4a48-b837-dcfb57bbb894" alt="Mobile Page lightbox" width="300" />
 </p>
 
 ![Submission Form, Modal Pop Up, Footer, Email Submission & ReCAPTCHA](https://github.com/Raymondtaoo/dawnsportfolio/assets/123979366/b39686c3-7843-4a9a-a7c4-91413a33ae59)
