@@ -34,7 +34,7 @@ const NavBar = () => {
         <ul className={`md:flex ${isMenuOpen ? "block" : "hidden"} space-x-4`}>
           <li>
             <NavLink
-              to="/dawnsportfolio"
+              to="/"
               className={({ isActive }) =>
                 isActive ? `${linkClasses} ${activeLinkClasses}` : linkClasses
               }
