@@ -10,10 +10,10 @@ import './styles/global.css';
 
 function App() {
   return (
-    <Router basename="/">
+    <Router>
       <NavBar />
       <Routes>
-        <Route path="/dawnsportfolio" element={<VisDev />} />
+        <Route path="/" element={<VisDev />} />
         <Route path="/personal" element={<Personal />} />
         <Route path="/about-contact" element={<AboutContact />} />
       </Routes>
