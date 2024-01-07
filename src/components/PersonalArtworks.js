@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Lightbox from "react-18-image-lightbox";
 import "react-18-image-lightbox/style.css";
 
@@ -25,42 +25,33 @@ const PersonalArtworks = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
-  const [visible, setVisible] = useState(6);
-  const [imageStyles, setImageStyles] = useState({});
+  const imgRefs = useRef([]);
 
   useEffect(() => {
-    const loadImagesAndDetermineStyles = async () => {
-      let styles = {};
-      for (const [index, image] of PersonalImages.entries()) {
-        const img = new Image();
-        img.onload = () => {
-          const aspectRatio = img.width / img.height;
-          // Assign style based on aspect ratio
-          styles[index] = aspectRatio >= 1.4 ? "max-w-6xl" : "max-w-xl";
-          setImageStyles({ ...styles });
-        };
-        img.src = image.src;
-      }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          const img = entry.target;
+          img.src = img.dataset.src;
+          observer.unobserve(img);
+        });
+      },
+      { rootMargin: "0px 0px 50px 0px" }
+    );
+
+    const currentImgRefs = imgRefs.current;
+    currentImgRefs.forEach((img) => {
+      if (img) observer.observe(img);
+    });
+
+    return () => {
+      currentImgRefs.forEach((img) => {
+        if (img) observer.unobserve(img);
+      });
     };
-
-    loadImagesAndDetermineStyles();
-
-    const handleScroll = () => {
-      if (
-        window.innerHeight + document.documentElement.scrollTop !==
-        document.documentElement.offsetHeight
-      )
-        return;
-      loadMoreImages();
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const loadMoreImages = () => {
-    setVisible((prevVisible) => prevVisible + 6);
-  };
+  }, []);
 
   const openLightbox = (index) => {
     setPhotoIndex(index);
@@ -70,19 +61,18 @@ const PersonalArtworks = () => {
   return (
     <>
       <div className="flex flex-wrap justify-center gap-4">
-        {PersonalImages.slice(0, visible).map((image, index) => (
+        {PersonalImages.map((image, index) => (
           <div
             key={index}
-            className={`flex-auto p-2 ${imageStyles[index]} ${
-              imageStyles[index] === "max-w-6xl" ? "w-full" : "w-1/2"
-            }`}
+            className="flex-auto p-2 w-full or w-1/2 based on your styling"
           >
             <img
-              src={image.src}
+              ref={(el) => (imgRefs.current[index] = el)}
+              data-src={image.src}
               alt={image.alt}
-              loading="lazy"
               className="w-full h-auto transform hover:scale-105 transition duration-300 cursor-pointer"
               onClick={() => openLightbox(index)}
+              loading="lazy"
             />
           </div>
         ))}
