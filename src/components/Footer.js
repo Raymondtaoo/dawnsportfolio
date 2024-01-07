@@ -11,7 +11,7 @@ const Footer = () => {
             </p>
           </div>
           <div className="flex space-x-6">
-            <NavLink to="/" className="text-gray-300 hover:text-white">
+            <NavLink to="/dawnsportfolio" className="text-gray-300 hover:text-white">
               Visual Development
             </NavLink>
             <NavLink to="/personal" className="text-gray-300 hover:text-white">
