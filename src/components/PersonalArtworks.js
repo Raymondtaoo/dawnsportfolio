@@ -1,106 +1,116 @@
-import React, { useRef, useState, useEffect } from "react";
-import Lightbox from "react-18-image-lightbox";
-import "react-18-image-lightbox/style.css";
+  import React, { useState, useEffect } from "react";
+  import Lightbox from "react-18-image-lightbox";
+  import "react-18-image-lightbox/style.css";
 
-const PersonalArtworks = () => {
-  const PersonalImages = [
-    // add images here
-    {
-      src: "/images/personal/image1.png",
-      alt: "",
-    },
-    {
-      src: "/images/personal/image2.png",
-      alt: "",
-    },
-    {
-      src: "/images/personal/image3.jpeg",
-      alt: "",
-    },
-    {
-      src: "/images/personal/image4.png",
-      alt: "",
-    },
-  ];
-
-  const [isOpen, setIsOpen] = useState(false);
-  const [photoIndex, setPhotoIndex] = useState(0);
-  const imgRefs = useRef([]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-
-          const img = entry.target;
-          img.src = img.dataset.src;
-          observer.unobserve(img);
-        });
+  const PersonalArtworks = () => {
+    const PersonalImages = [
+      // add images here
+      {
+        src: "/images/personal/image1.png",
+        alt: "",
       },
-      { rootMargin: "0px 0px 50px 0px" }
-    );
+      {
+        src: "/images/personal/image2.png",
+        alt: "",
+      },
+      {
+        src: "/images/personal/image3.jpeg",
+        alt: "",
+      },
+      {
+        src: "/images/personal/image4.png",
+        alt: "",
+      },
+    ];
 
-    const currentImgRefs = imgRefs.current;
-    currentImgRefs.forEach((img) => {
-      if (img) observer.observe(img);
-    });
+    const [isOpen, setIsOpen] = useState(false);
+    const [photoIndex, setPhotoIndex] = useState(0);
+    const [visible, setVisible] = useState(6);
+    const [imageStyles, setImageStyles] = useState({});
 
-    return () => {
-      currentImgRefs.forEach((img) => {
-        if (img) observer.unobserve(img);
-      });
+    useEffect(() => {
+      const loadImagesAndDetermineStyles = async () => {
+        let styles = {};
+        for (const [index, image] of PersonalImages.entries()) {
+          const img = new Image();
+          img.onload = () => {
+            const aspectRatio = img.width / img.height;
+            // Assign style based on aspect ratio
+            styles[index] = aspectRatio >= 1.4 ? "max-w-6xl" : "max-w-xl";
+            setImageStyles({ ...styles });
+          };
+          img.src = image.src;
+        }
+      };
+
+      loadImagesAndDetermineStyles();
+
+      const handleScroll = () => {
+        if (
+          window.innerHeight + document.documentElement.scrollTop !==
+          document.documentElement.offsetHeight
+        )
+          return;
+        loadMoreImages();
+      };
+
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+    const loadMoreImages = () => {
+      setVisible((prevVisible) => prevVisible + 6);
     };
-  }, []);
 
-  const openLightbox = (index) => {
-    setPhotoIndex(index);
-    setIsOpen(true);
+    const openLightbox = (index) => {
+      setPhotoIndex(index);
+      setIsOpen(true);
+    };
+
+    return (
+      <>
+        <div className="flex flex-wrap justify-center gap-4">
+          {PersonalImages.slice(0, visible).map((image, index) => (
+            <div
+              key={index}
+              className={`flex-auto p-2 ${imageStyles[index]} ${
+                imageStyles[index] === "max-w-6xl" ? "w-full" : "w-1/2"
+              }`}
+            >
+              <img
+                src={image.src}
+                alt={image.alt}
+                loading="lazy"
+                className="w-full h-auto transform hover:scale-105 transition duration-300 cursor-pointer"
+                onClick={() => openLightbox(index)}
+              />
+            </div>
+          ))}
+        </div>
+        {isOpen && (
+          <Lightbox
+            mainSrc={PersonalImages[photoIndex].src}
+            nextSrc={PersonalImages[(photoIndex + 1) % PersonalImages.length].src}
+            prevSrc={
+              PersonalImages[
+                (photoIndex + PersonalImages.length - 1) % PersonalImages.length
+              ].src
+            }
+            onCloseRequest={() => setIsOpen(false)}
+            onMovePrevRequest={() =>
+              setPhotoIndex(
+                (photoIndex + PersonalImages.length - 1) % PersonalImages.length
+              )
+            }
+            onMoveNextRequest={() =>
+              setPhotoIndex((photoIndex + 1) % PersonalImages.length)
+            }
+            imageTitle={PersonalImages[photoIndex].alt}
+            reactModalStyle={{ overlay: { zIndex: 2000 } }}
+          />
+        )}
+      </>
+    );
   };
 
-  return (
-    <>
-      <div className="flex flex-wrap justify-center gap-4">
-        {PersonalImages.map((image, index) => (
-          <div
-            key={index}
-            className="flex-auto p-2 w-full or w-1/2 based on your styling"
-          >
-            <img
-              ref={(el) => (imgRefs.current[index] = el)}
-              data-src={image.src}
-              alt={image.alt}
-              className="w-full h-auto transform hover:scale-105 transition duration-300 cursor-pointer"
-              onClick={() => openLightbox(index)}
-              loading="lazy"
-            />
-          </div>
-        ))}
-      </div>
-      {isOpen && (
-        <Lightbox
-          mainSrc={PersonalImages[photoIndex].src}
-          nextSrc={PersonalImages[(photoIndex + 1) % PersonalImages.length].src}
-          prevSrc={
-            PersonalImages[
-              (photoIndex + PersonalImages.length - 1) % PersonalImages.length
-            ].src
-          }
-          onCloseRequest={() => setIsOpen(false)}
-          onMovePrevRequest={() =>
-            setPhotoIndex(
-              (photoIndex + PersonalImages.length - 1) % PersonalImages.length
-            )
-          }
-          onMoveNextRequest={() =>
-            setPhotoIndex((photoIndex + 1) % PersonalImages.length)
-          }
-          imageTitle={PersonalImages[photoIndex].alt}
-          reactModalStyle={{ overlay: { zIndex: 2000 } }}
-        />
-      )}
-    </>
-  );
-};
-
-export default PersonalArtworks;
+  export default PersonalArtworks;
