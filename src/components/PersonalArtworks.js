@@ -6,11 +6,11 @@
     const PersonalImages = [
       // add images here
       {
-        src: "/images/personal/image1.png",
+        src: "/images/personal/image1.webp",
         alt: "",
       },
       {
-        src: "/images/personal/image2.png",
+        src: "/images/personal/image2.webp",
         alt: "",
       },
       {
@@ -18,7 +18,7 @@
         alt: "",
       },
       {
-        src: "/images/personal/image4.png",
+        src: "/images/personal/image4.webp",
         alt: "",
       },
     ];

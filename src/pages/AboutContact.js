@@ -131,7 +131,7 @@ const AboutContact = () => {
         <div className="bg-white p-1 md:p-3 rounded-lg border border-gray-200 shadow-md">
           <div className="flex justify-center overflow-hidden">
             <img
-              src=" /resume.png"
+              src=" /resume.webp"
               alt="Resume"
               className="w-full max-h-[836px] object-contain"
               style={{ objectFit: "contain" }}

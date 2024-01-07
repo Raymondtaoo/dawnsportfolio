@@ -6,31 +6,31 @@ const VisDevArtworks = () => {
   const visDevImages = [
     // add images here
     {
-      src: "/images/visdev/image4.png",
+      src: "/images/visdev/image4.webp",
       alt: "",
     },
     {
-      src: "/images/visdev/image5.png",
+      src: "/images/visdev/image5.webp",
       alt: "",
     },
     {
-      src: "/images/visdev/image6.png",
+      src: "/images/visdev/image6.webp",
       alt: "",
     },
     {
-      src: "/images/visdev/image7.png",
+      src: "/images/visdev/image7.webp",
       alt: "",
     },
     {
-      src: "/images/visdev/image8.png",
+      src: "/images/visdev/image8.webp",
       alt: "",
     },
     {
-      src: "/images/visdev/image9.png",
+      src: "/images/visdev/image9.webp",
       alt: "",
     },
     {
-      src: "/images/visdev/image10.png",
+      src: "/images/visdev/image10.webp",
       alt: "",
     },
   ];
