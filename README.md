@@ -1,6 +1,4 @@
 # Dawn's Portfolio Website
-
-## Overview
 <p align="center">
   <img src="https://img.shields.io/badge/React.js-20232A?style=for-the-badge&logo=react" alt="React.js" />
   <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css" alt="Tailwind CSS" />
@@ -8,6 +6,8 @@
   <img src="https://img.shields.io/badge/Google_reCAPTCHA-4285F4?style=for-the-badge&logo=google" alt="Google Invisible reCAPTCHA" />
   <img src="https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router" alt="React Router" />
 </p>
+
+## Overview
 Dawn's Portfolio is a minimal, responsive website showcasing artistic works. This project incorporates modern web technologies and interactive features to provide an engaging user experience.
 
 ### Live Site
