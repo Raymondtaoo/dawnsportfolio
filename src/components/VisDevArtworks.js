@@ -7,31 +7,31 @@ const VisDevArtworks = () => {
     // add images here
     {
       src: "/images/visdev/image4.webp",
-      alt: "",
+      alt: "Alice in Wonderland Character Lineup",
     },
     {
       src: "/images/visdev/image5.webp",
-      alt: "",
+      alt: "Alice in Wonderland Prop Design",
     },
     {
       src: "/images/visdev/image6.webp",
-      alt: "",
+      alt: "Mad Hatter Exploration",
     },
     {
       src: "/images/visdev/image7.webp",
-      alt: "",
+      alt: "Mad Hatter Exploration 2",
     },
     {
       src: "/images/visdev/image8.webp",
-      alt: "",
+      alt: "Queen of Hearts Palace Interior",
     },
     {
       src: "/images/visdev/image9.webp",
-      alt: "",
+      alt: "Queen of Hearts Palace Design",
     },
     {
       src: "/images/visdev/image10.webp",
-      alt: "",
+      alt: "Card Soldiers Exploration",
     },
   ];
 
