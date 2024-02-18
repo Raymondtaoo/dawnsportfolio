@@ -191,13 +191,14 @@ const AboutContact = () => {
               <div className="w-full px-3 mb-6 md:mb-0">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="name"
+                  htmlFor="from_name"
                 >
                   Name
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                   name="from_name"
+                  id="from_name"
                   type="text"
                   placeholder="Your Name"
                   value={formValues.from_name}
@@ -213,13 +214,14 @@ const AboutContact = () => {
               <div className="w-full px-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="email"
+                  htmlFor="reply_to"
                 >
                   Email
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                   name="reply_to"
+                  id="reply_to"
                   type="email"
                   placeholder="youremail@example.com"
                   value={formValues.reply_to}
@@ -243,6 +245,7 @@ const AboutContact = () => {
               <textarea
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 name="message"
+                id="message"
                 placeholder="Enter your message here..."
                 rows="4"
                 value={formValues.message}
