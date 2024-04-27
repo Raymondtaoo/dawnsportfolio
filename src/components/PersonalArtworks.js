@@ -69,6 +69,18 @@ const PersonalArtworks = () => {
 
   return (
     <>
+      <div className="flex flex-wrap justify-center gap-4 video-responsive">
+        <iframe
+          width="1000"
+          height="500"
+          src="https://www.youtube.com/embed/Y7G-S31eR6g?si=9NaGF2cZ-bkQfmYq"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+      </div>
       <div className="flex flex-wrap justify-center gap-4">
         {PersonalImages.slice(0, visible).map((image, index) => (
           <div
