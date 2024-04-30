@@ -73,7 +73,7 @@ const PersonalArtworks = () => {
         <iframe
           width="1000"
           height="500"
-          src="https://www.youtube.com/embed/Y7G-S31eR6g?si=9NaGF2cZ-bkQfmYq"
+          src="https://www.youtube.com/embed/AlVxm8rBzg0?si=hLRuqIbwM-7486I2"
           title="YouTube video player"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
